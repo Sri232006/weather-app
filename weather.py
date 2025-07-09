@@ -39,8 +39,6 @@ def get_weather(city, unit):
                 f"🌬 Wind Speed: {wind} m/s"
             )
         )
-
-        # Load weather icon
         icon_url = f"http://openweathermap.org/img/wn/{icon_id}@4x.png"
         icon_response = requests.get(icon_url)
         img_data = icon_response.content
@@ -62,38 +60,23 @@ def search():
         return
     get_weather(city, unit)
 
-# ======= GUI Setup =======
-style = Style(theme="minty")  # Try: flatly, journal, vapor, darkly, etc.
+style = Style(theme="minty")  
 app = style.master
 app.title("🌤 Weather Forecast")
 app.geometry("420x550")
-app.configure(bg="#dfe9f3")  # Soft gradient-like background
-
-# Frame with slight gradient-like background (simulated)
+app.configure(bg="#dfe9f3")  
 frame = Frame(app, padding=20, bootstyle="light", borderwidth=2, relief="ridge")
 frame.place(relx=0.5, rely=0.5, anchor="center")
-
-# Title
 Label(frame, text="Weather App", font=("Helvetica", 18, "bold"), bootstyle="primary").pack(pady=10)
-
-# City Input
 Label(frame, text="City Name:", font=("Arial", 12)).pack(anchor="w")
 city_entry = Entry(frame, font=("Arial", 12), width=28)
 city_entry.pack(pady=5)
-
-# Unit Select
 unit_var = tk.StringVar(value="Celsius")
 Label(frame, text="Select Unit:", font=("Arial", 12)).pack(anchor="w", pady=(10, 0))
 OptionMenu(frame, unit_var, "Celsius", "Fahrenheit").pack(pady=5)
-
-# Search Button
 Button(frame, text="Get Weather", command=search, bootstyle="success", width=25).pack(pady=15)
-
-# Weather Icon
 icon_label = Label(frame)
 icon_label.pack(pady=5)
-
-# Result Output
 result_label = Label(frame, font=("Arial", 12), wraplength=300, justify="center")
 result_label.pack(pady=10)
 
